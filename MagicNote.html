@@ -42,11 +42,16 @@
     <div class="card my-3" >
 
         <div class="card-body">
-          <h5 class="card-title">Add a note</h5>
+          <h5 class="card-title">
+            
+            <div class="col-sm-3">
+              <input type="text" class="form-control" id="title" placeholder="Enter Title:">
+            </div>
+        </h5>
           <div class="form-group">
-          <textarea class="form-control" id="" rows="3"></textarea>
+          <textarea class="form-control"  rows="3" id="noteText"></textarea>
           </div>
-          <button  class="btn btn-lg btn-primary">Add Note</button>
+          <button  class="btn btn-lg btn-primary" id="addNote">Add Note</button>
         </div>
       </div>
 
@@ -72,5 +77,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+    <script src="Script/magicNote.js"></script>
 </body>
 </html>
