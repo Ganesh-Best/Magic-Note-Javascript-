@@ -10,8 +10,43 @@ const noteText = document.querySelector('#noteText');
 //Selecting element Object having Id value : title and storing to title ;
 const title = document.querySelector('#title');
 
+////Selecting element Object having Id value : search and storing to search ;
+const search = document.querySelector('#search');
 
+//It assigns an arrow functions to search object and whenever user type in search object ,
+//it run this arrow function:
+search.addEventListener('input',eventObject => {
+  
+  //eventObject is store information like whom to event occur etc:
 
+  //It selects target element and take its value and converted in lowercase and store to searchData variable: 
+  let searchData = eventObject.target.value.toLowerCase() ;
+
+  //It selects element Object having class value : row and return its childrens:
+  //Children : child elements of that object :
+  let elements =  document.querySelector('.row').children;
+    
+  //Array.from function convert HTMLCollection object to Array object:
+  //so that we can apply for each :
+  //forEach is callback function :,it takes a function as arguments :
+      Array.from(elements).forEach(element =>{
+              
+         let p  = element.querySelector('p');                
+         let data  = p.innerText.toLowerCase() ;
+         console.log(data.toLowerCase());
+         console.log(searchData.toLowerCase());
+
+         if( !(data.includes(searchData)))
+              element.style.display = "none";
+
+        if(searchData == "")
+           element.style.display = "block"; 
+              
+      });
+   
+  
+
+});
 
 
 
@@ -35,10 +70,10 @@ addButton.addEventListener('click', eventObject => {
 
     //It gets Title Object value and store to key variable :    
     let key = title.value;
-      
+   //It create date and store to d1 :      
      let d1 = new Date();
-    //creating key in notes and storing value on it :  
-    Notes[key] = `${noteText.value} <br>Date:${d1} `;
+    //creating key in notes and storing value & date on it :  
+    Notes[key] = `${noteText.value} <br>Date: <b>${d1}</b> `;
     
     //Reset Value of Title Object to empty:
     title.value = "";
@@ -52,7 +87,7 @@ addButton.addEventListener('click', eventObject => {
    
     
     displayNote();
-    console.log(window.localStorage);
+    
 });
 
 const deleteNote = targetElement =>{
@@ -75,8 +110,10 @@ let Id = targetElement.parentNode.querySelector('p').id ;
     console.log(localStorage);
 }
 
+//It is displayNote function :responsible to display notes :
 const displayNote = () => {
-
+  
+   //
    let  Notes = window.localStorage.getItem('Notes');
     Notes = JSON.parse(Notes);
     let text = "";
@@ -97,7 +134,8 @@ const displayNote = () => {
       `     
    }
 }   
+  
  document.querySelector('.row').innerHTML = text;
 } 
-
+//Calling Display note function :
 displayNote();
