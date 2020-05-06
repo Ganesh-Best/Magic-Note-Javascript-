@@ -11,6 +11,10 @@ const noteText = document.querySelector('#noteText');
 const title = document.querySelector('#title');
 
 
+
+
+
+
 //It assigns an arrow functions to addButton object and whenever user click on addButton object ,
 //it run this arrow function:
 
@@ -32,8 +36,9 @@ addButton.addEventListener('click', eventObject => {
     //It gets Title Object value and store to key variable :    
     let key = title.value;
       
+     let d1 = new Date();
     //creating key in notes and storing value on it :  
-    Notes[key] = noteText.value;
+    Notes[key] = `${noteText.value} <br>Date:${d1} `;
     
     //Reset Value of Title Object to empty:
     title.value = "";
@@ -50,24 +55,43 @@ addButton.addEventListener('click', eventObject => {
     console.log(window.localStorage);
 });
 
+const deleteNote = targetElement =>{
+
+let Id = targetElement.parentNode.querySelector('p').id ;
+     
+      let Notes  = window.localStorage.getItem('Notes');
+         Notes = JSON.parse(Notes);
+         
+        
+         for(let key in Notes){
+                   
+             if(key === Id )
+              delete Notes[Id];
+         }
+            
+       window.localStorage.setItem('Notes',JSON.stringify(Notes));
+
+    displayNote();
+    console.log(localStorage);
+}
 
 const displayNote = () => {
 
    let  Notes = window.localStorage.getItem('Notes');
     Notes = JSON.parse(Notes);
     let text = "";
-   
+  
     if(!Notes)
        text = "<h1>Oops No Notes Found :</h1>";         
     else{
          for(let key in Notes){
-      
+           
           text += `
             <div class="card mr-3 my-3" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">${key}</h5>
-                <p class="card-text">${Notes[key]}</p>
-                <button  class="btn btn-primary w-100" >Delete Note</button>
+                <p class="card-text" id = '${key}' > ${Notes[key]}  </p>
+                <button  class="btn btn-primary w-100" id ="deleteNote" onclick = deleteNote(this) >Delete Note</button>
                </div>
             </div>
       `     
